@@ -18,6 +18,7 @@ int main()
 	cout << "Welcome to the Business Sorting Program! \nPlease enter the name of a business: ";
 	getline(cin,name);
 	string next;
+	
 	while(next != "no" || next != "n" || next != "No" || next != "N")
 	{
 		businesses::addBusiness(name, myVector);
@@ -46,12 +47,12 @@ static void addBusiness(string name, vector<string> business)
 				{
 					if(tempstring[j] < name[j])
 					{
-						business.insert(*it,name);
-						exit();
+						business.insert(it,name);
+						break;
 					}
 					else
-						business.insert(*it-1,name);
-						exit();
+						business.insert(it-1,name);
+						break;
 				}
 			}	
 		}
@@ -60,20 +61,21 @@ static void addBusiness(string name, vector<string> business)
 
 static void printer(vector<string> business)
 {
+	vector<string>::iterator it;
 	if(business.size() > 1)
 	{
 		cout << "Your businesses are: " << '\n' << endl;
-		for(auto i : business)
+		for(int i = 0; i < business.size(); i++)
 		{
-			cout << i << endl;
+			cout << *it << endl;
 		}
 	}
 	else
 	{
 		cout << "Your business is: " << '\n' << endl;
-		for(auto i : business)
+		for(int i = 0; i < business.size(); i++)
 		{
-			cout << i << endl;
+			cout << *it << endl;
 		}
 		
 	}
