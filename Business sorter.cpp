@@ -32,15 +32,13 @@ int main()
 
 void Businesses::addBusiness(string name)
 {
-	int i;
 	vector<string>::iterator it;
 	string tempstring;
 	if(myVector.empty())
 		myVector.insert(myVector.begin(),name);
 	else
 	{
-		myVector.reserve(1);
-		for(it = myVector.begin(); it != myVector.end(); it++, i++)
+		for(it = myVector.begin(); it != myVector.end(); it++)
 		{
 			tempstring = *it;
 			for(int j = 0; j < name.size(); j++)
@@ -50,11 +48,9 @@ void Businesses::addBusiness(string name)
 					if(tempstring[j] < name[j])
 					{
 						myVector.insert(it,name);
-						break;
 					}
 					else
 						myVector.insert(it+1,name);
-						break;
 				}
 			}	
 		}
