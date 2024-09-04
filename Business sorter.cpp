@@ -3,55 +3,57 @@
 #include <string>
 
 using namespace std;
-
-class businesses
+class Businesses
 {
+	private:
+		vector<string> myVector;
 	public:
-		static void addBusiness(string, vector<string>);	
-		static void printer(vector<string>);
+		void addBusiness(string);
+		void printer();
 };
 
 int main()
 {
-	string name;
-	vector<string> myVector;
-	cout << "Welcome to the Business Sorting Program! \nPlease enter the name of a business: ";
-	getline(cin,name);
-	string next;
+	Businesses busObj;
+	string word;
+	cout << "Welcome to the Business Sorting Program! " << endl;
+	string next = "yes";
 	
-	while(next != "no" || next != "n" || next != "No" || next != "N")
-	{
-		businesses::addBusiness(name, myVector);
-		businesses::printer(myVector);
-		
+	while(next == "Yes" || next == "Y" || next == "yes" || next == "y")
+	{	
+		cout <<"Please enter the name of a business: ";
+		getline(cin,word);
+		busObj.addBusiness(word);
+		busObj.printer();
 		cout << "Another business? ";
-		getline(cin,name);
+		getline(cin,next);
 	}
 }
 
-static void addBusiness(string name, vector<string> business)
+void Businesses::addBusiness(string name)
 {
-	vector<string>::iterator it;
 	int i;
+	vector<string>::iterator it;
 	string tempstring;
-	if(business.empty())
-		business.push_back(name);
+	if(myVector.empty())
+		myVector.insert(myVector.begin(),name);
 	else
 	{
-		for(it = business.begin(); it != business.end(); it++,i++ )
+		myVector.reserve(1);
+		for(it = myVector.begin(); it != myVector.end(); it++, i++)
 		{
-			tempstring = business[i];
+			tempstring = *it;
 			for(int j = 0; j < name.size(); j++)
 			{
 				if(tempstring[j] != name[j])
 				{
 					if(tempstring[j] < name[j])
 					{
-						business.insert(it,name);
+						myVector.insert(it,name);
 						break;
 					}
 					else
-						business.insert(it-1,name);
+						myVector.insert(it+1,name);
 						break;
 				}
 			}	
@@ -59,25 +61,14 @@ static void addBusiness(string name, vector<string> business)
 	}
 };
 
-static void printer(vector<string> business)
+void Businesses::printer()
 {
 	vector<string>::iterator it;
-	if(business.size() > 1)
+	cout << "Your businesses are: " << '\n' << endl;
+	for(it = myVector.begin(); it < myVector.end(); it++)
 	{
-		cout << "Your businesses are: " << '\n' << endl;
-		for(int i = 0; i < business.size(); i++)
-		{
-			cout << *it << endl;
-		}
-	}
-	else
-	{
-		cout << "Your business is: " << '\n' << endl;
-		for(int i = 0; i < business.size(); i++)
-		{
-			cout << *it << endl;
-		}
-		
+		cout << *it << endl;
+		it++;
 	}
 };
 
